@@ -42,7 +42,7 @@ export function replaceWithRest(ctr, path) {
   if (ctr.init.callee.name === 'require') {
     path.replaceWith(
       t.importDeclaration(
-        ctr.id.properties.map(v => t.importSpecifier(v.value, v.key,)),
+        ctr.id.properties.map(v => t.importSpecifier(v.value, v.key)),
         // source StringLiteral
         ctr.init.arguments[0]
       )

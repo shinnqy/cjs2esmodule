@@ -1,8 +1,10 @@
 import { readFile, createWriteStream } from 'fs'
-import glob from 'glob'
+import glob from 'glob';
 import { relative } from 'path'
-import { isCjsFile, transformFileBase } from './utils/base'
+import { isCjsFile, generateTransformer } from './utils/base'
+import { cjs2esmVisitors } from './visitors';
 
+const transformFileBase = generateTransformer(cjs2esmVisitors);
 const ROOT = process.cwd()
 
 function _transformFiles(pattern) {
@@ -29,5 +31,5 @@ export function transformFiles(paths: string | string[]) {
     paths.forEach(v => _transformFiles(v))
   } else {
     _transformFiles(paths)
-  } 
+  }
 }

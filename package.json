@@ -1,19 +1,19 @@
 {
-  "name": "cjs2esmodule",
+  "name": "@shinnqy/cjs2esmodule",
   "version": "1.1.1",
   "main": "lib/index.js",
-  "description": "将commonjs转为es module，可在vite中使用，也可直接转换文件",
+  "description": "Convert cjs to esm. Support vite.js and standalone.",
   "license": "MIT",
-  "repository": "git@github.com:ma125120/cjs2esmodule.git",
-  "author": "马鹏达",
-  "email": "1251208555@qq.com",
+  "repository": "git@github.com:shinnqy/cjs2esmodule.git",
+  "author": "马鹏达, shinnqy",
+  "email": "1251208555@qq.com, qiuya@microsoft.com",
   "scripts": {
-    "bd": "yarn tsc --declaration",
+    "build": "yarn tsc --declaration",
     "test": "jest --config=jest.config.js",
     "release": "standard-version",
     "release:rc": "standard-version --prerelease rc",
     "pup": "npm run release && git push --follow-tags origin master",
-    "pub": "npm run pup && npm publish",
+    "publish": "npm run pup && npm publish",
     "cz": "cz"
   },
   "keywords": [
