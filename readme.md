@@ -1,18 +1,18 @@
-## 转换效果
+## Preview
 ![avatar](./1.png)
 
-## 安装
+## Install
 
 ```cmd
 npm i cjs2esmodule
-// 或者
+// or
 yarn add cjs2esmodule
 ```
 
-## 使用
+## Usage
 
-### 在vite中使用
-该方式会使用 babel 转换 AST，所以如果速度慢的话，推荐使用脚本直接转换文件
+### Using in vite.js
+This will use `babel` to transform `AST`. If it's too slow, prefer to use script version to transform files.
 
 ```js
 import { defineConfig } from 'vite'
@@ -24,13 +24,13 @@ export default defineConfig({
 })
 ```
 
-### 使用脚本直接转换文件
-底层使用了glob，所以文件匹配模式遵循 glob
+### Using script to transform files.
+Used `glob` under the hood, so it will follow the pattern.
 
 ```js
 const { transformFiles } = require('cjs2esmodule')
 
 transformFiles('./scripts/test.js')
-// 支持数组
+// Support Array
 transformFiles(['./utils/*.js', './components/*.js'])
 ```
