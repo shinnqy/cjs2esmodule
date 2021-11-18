@@ -35,3 +35,4 @@ module.exports = {
     // "^(?!.*\\.(css|json)$)": "<rootDir>/config/jest/fileTransform.js"
   },
 }
+

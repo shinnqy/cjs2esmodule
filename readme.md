@@ -1,5 +1,5 @@
 ## Preview
-![avatar](./1.png)
+![avatar](./preview.png)
 
 ## Install
 

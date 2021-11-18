@@ -38,4 +38,3 @@ it("快照", () => {
   const { code } = transformFileBase(content)
   expect(code).toContain(expectStr)
 });
-
