@@ -37,19 +37,24 @@ export const cjs2esmVisitors = {
   },
 }
 
-export const namespaceImportVisitors = {
+export const namespaceImportVisitors = (importFromInclude: string[]) => ({
 	ImportDeclaration(path) {
     const originalNode = path.node;
     const originalSpecifier = originalNode.specifiers[0];
+    const originalSourceValue = originalNode.source.value;
+
     if (originalSpecifier.type !== 'ImportNamespaceSpecifier') {
+      return;
+    }
+    if (!importFromInclude.includes(originalSourceValue)) {
       return;
     }
 
     const newNode = t.importDeclaration(
       [t.importDefaultSpecifier(t.identifier(originalSpecifier.local.name))],
-      t.stringLiteral(originalNode.source.value),
+      t.stringLiteral(originalSourceValue),
     );
 
     path.replaceWith(newNode);
   },
-};
+});

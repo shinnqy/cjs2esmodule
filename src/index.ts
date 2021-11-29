@@ -3,23 +3,29 @@ import { isCjsFile, generateTransformer } from "./utils/base"
 import { cjs2esmVisitors, namespaceImportVisitors } from './visitors';
 
 const transformFileBase = generateTransformer(cjs2esmVisitors);
-const transformNamespaceImport = generateTransformer(namespaceImportVisitors);
 
 /**
  *
  * @param sourceDir
  * @returns
  */
-export function cjs2esmVitePlugin({ sourceDir = 'src' } = {}) {
+export function cjs2esm(
+  { include = [], importFromInclude = [] }: { include?: string[], importFromInclude?: string[] }
+) {
   return {
     name: 'cjs2esmVitePlugin',
-    transform(src, id) {
-      const ROOT = process.cwd().replace(/\\/g, '/') + `/${sourceDir}`
-
-      if (/\.js$/g.test(id) && id.startsWith(ROOT) && isCjsFile(src)) {
-        // const { code, map } = transformFileBase(src, id)
-        return transformFileBase(src)
+    transform(sourceCode, id) {
+      const fileFilter = new RegExp("(" + include.join("|") + ").*.(js|ts|tsx)");
+      if (!fileFilter.test(id)) {
+        return;
       }
+
+      const importRegExp = getImportRegExp(importFromInclude);
+      if (importFromInclude.length > 0 && !importRegExp.test(sourceCode)) {
+        return null;
+      }
+
+      return transformFileBase(sourceCode);
     }
   }
 }
@@ -46,27 +52,52 @@ export function cjs2esm4esbuild(include: string[] = []) {
   };
 }
 
-export function transformNamespaceImport4esbuild(
-  { include = [], importFromInclude = [] }: { include: string[], importFromInclude: string[] }
+export function transformNamespaceImport(
+  { include = [], importFromInclude = [] }: { include?: string[], importFromInclude?: string[] }
 ) {
+  const transform = generateTransformer(namespaceImportVisitors(importFromInclude));
+
+  return {
+    name: 'shinnqy:transformNamespaceImport',
+    transform(sourceCode, id) {
+      const fileFilter = new RegExp("(" + include.join("|") + ").*.(js|ts|tsx)");
+      if (!fileFilter.test(id)) {
+        return;
+      }
+
+      const importRegExp = getImportRegExp(importFromInclude);
+      if (importFromInclude.length > 0 && !importRegExp.test(sourceCode)) {
+        return null;
+      }
+
+      const result = transform(sourceCode);
+      return result;
+    }
+  }
+}
+
+export function transformNamespaceImport4esbuild(
+  { include = [], importFromInclude = [] }: { include?: string[], importFromInclude?: string[] }
+) {
+  const transform = generateTransformer(namespaceImportVisitors(importFromInclude));
+
   return {
     name: "shinnqy:transformNamespaceImport4esbuild",
     setup(build) {
       build.onLoad(
         {
-          filter: new RegExp("(" + include.join("|") + ").*.js"),
+          filter: new RegExp("(" + include.join("|") + ").*.(js|ts|tsx)"),
           namespace: "file",
         },
         async ({ path: id }) => {
           const code = fs.readFileSync(id).toString();
-          importFromInclude.forEach((i) => {
-            i.split('/').join('\\/');
-          })
-          const exp = `from\\s*(\\'|\\")(${importFromInclude.join("|")})(\\'|\\").*`;
-          if (importFromInclude.length > 0 && !(new RegExp(exp)).test(code)) {
+
+          const importRegExp = getImportRegExp(importFromInclude);
+          if (importFromInclude.length > 0 && !importRegExp.test(code)) {
             return null;
           }
-          const result = transformNamespaceImport(code);
+
+          const result = transform(code);
           return {
             contents: result.code,
             loader: "js",
@@ -75,6 +106,14 @@ export function transformNamespaceImport4esbuild(
       );
     },
   };
+}
+
+function getImportRegExp(importFromInclude: string[]) {
+  importFromInclude.forEach((i) => {
+    i.split('/').join('\\/');
+  })
+  const exp = `from\\s*(\\'|\\")(${importFromInclude.join("|")})(\\'|\\").*`;
+  return new RegExp(exp);
 }
 
 export { transformFiles } from './scripts'
