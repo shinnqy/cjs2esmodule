@@ -1,5 +1,5 @@
 {
-  "name": "@shinnqy/cjs2esmodule",
+  "name": "@shinnqy/cjs2esm",
   "version": "1.1.1",
   "main": "lib/index.js",
   "description": "Convert cjs to esm. Support vite.js and standalone.",
