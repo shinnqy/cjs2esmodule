@@ -2,6 +2,17 @@
 
 All notable changes to this project will be documented in this file. See [standard-version](https://github.com/conventional-changelog/standard-version) for commit guidelines.
 
+## [1.2.0](https://github.com/shinnqy/cjs2esmodule/compare/v1.1.0...v1.2.0) (2021-11-29)
+
+
+### Features
+
+* .gitignore[no-ci] ([dd1f64c](https://github.com/shinnqy/cjs2esmodule/commit/dd1f64c74c7ad935205aa3cf2960d63b1f7ffe05))
+* add esbuild plugin ([2e3d816](https://github.com/shinnqy/cjs2esmodule/commit/2e3d816cc74ee50420466ee5189be4477ccf69f6))
+* add rollup plugin: transform namespace import & cjs2esm ([4165f29](https://github.com/shinnqy/cjs2esmodule/commit/4165f296f6fbbfc08015e2b01f68efbe01f38e91))
+* rename to @shinnqy/csj2esm ([b93b6b3](https://github.com/shinnqy/cjs2esmodule/commit/b93b6b3d99aa888ad0dbe3ee23fdbd0774cc54f2))
+* update ([45d561e](https://github.com/shinnqy/cjs2esmodule/commit/45d561e7803f93378513b2d4e0f18369b4c9c34d))
+
 ## 1.1.0 (2021-03-19)
 
 
