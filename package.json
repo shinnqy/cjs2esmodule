@@ -1,6 +1,6 @@
 {
   "name": "@shinnqy/cjs2esm",
-  "version": "1.2.0",
+  "version": "1.2.1",
   "main": "lib/index.js",
   "description": "Convert cjs to esm. Support vite.js and standalone.",
   "license": "MIT",
@@ -13,7 +13,6 @@
     "release": "standard-version",
     "release:rc": "standard-version --prerelease rc",
     "pup": "npm run release && git push --follow-tags origin master",
-    "publish": "npm run pup && npm publish",
     "cz": "cz"
   },
   "keywords": [
@@ -22,21 +21,11 @@
     "commonjs to es module"
   ],
   "dependencies": {
-    "@babel/cli": "^7.13.10",
-    "@babel/core": "^7.13.10",
-    "@babel/preset-env": "^7.13.10",
-    "glob": "^7.1.6"
+    "glob": "^7.2.0"
   },
   "devDependencies": {
-    "@commitlint/cli": "^12.0.1",
-    "@commitlint/config-conventional": "^12.0.1",
     "@types/jest": "^26.0.20",
     "@types/node": "^14.14.33",
-    "@typescript-eslint/eslint-plugin": "^4.18.0",
-    "@typescript-eslint/parser": "^4.18.0",
-    "babel-jest": "^26.6.3",
-    "commitizen": "^4.2.3",
-    "eslint": "^7.22.0",
     "husky": "^5.1.3",
     "jest": "^26.6.3",
     "lint-staged": "^10.5.4",
