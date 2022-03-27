@@ -2,6 +2,7 @@
   "name": "@shinnqy/cjs2esm",
   "version": "1.2.1",
   "main": "lib/index.js",
+  "bin": "./bin/cjs2esm",
   "description": "Convert cjs to esm. Support vite.js and standalone.",
   "license": "MIT",
   "repository": "git@github.com:shinnqy/cjs2esmodule.git",
@@ -21,7 +22,9 @@
     "commonjs to es module"
   ],
   "dependencies": {
-    "glob": "^7.2.0"
+    "glob": "^7.2.0",
+    "@babel/parser": "^7.17.8",
+    "@babel/traverse": "^7.17.3"
   },
   "devDependencies": {
     "@types/jest": "^26.0.20",
